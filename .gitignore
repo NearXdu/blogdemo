@@ -6,6 +6,7 @@
 # phpstorm project files
 .idea
 
+/sql
 # netbeans project files
 nbproject
 
