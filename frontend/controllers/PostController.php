@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use common\models\Comment;
 use common\models\Tag;
 use common\models\User;
+use const PHP_EOL;
 use Yii;
 use common\models\Post;
 use common\models\PostSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,6 +42,8 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        //echo "zx".PHP_EOL;
+        //exit(-1);
         $tags = Tag::findTagWeights();
         $recentComments = Comment::findRecentComment();
         $searchModel = new PostSearch();
@@ -148,13 +152,12 @@ class PostController extends Controller
         $commentModel = new Comment();
         $commentModel->email = $userMe->email;
         $commentModel->userid = $userMe->id;
-        $commentModel->url="www.baidu.com";
+        $commentModel->url = "www.baidu.com";
 
         //当评论提交时，处理评论
         if ($commentModel->load(Yii::$app->request->post())) {
             $commentModel->status = 1;
-            $commentModel->post_id=$id;
-
+            $commentModel->post_id = $id;
 
 
             if ($commentModel->save()) {
